@@ -320,5 +320,47 @@ window.addEventListener("keypress", function (e) {
                 key.classList.remove("keyboard__key-lightup");
             }, 200);
         }
-    })
+    });
+});
+
+window.addEventListener("keydown", function (e) {
+    if (e.key === 'Shift') {
+        fullKeyboard.handleShiftClick();
+        fullKeyboard.elements.keys.forEach(key => {
+            if (key.textContent === 'shift') {
+                key.classList.toggle("keyboard__key--active", this.shift);
+            }
+        })
+    }
+
+    if (e.key === 'Backspace') {
+        fullKeyboard.elements.keys.forEach(key => {
+            if (key.textContent === 'backspace') {
+                key.classList.add("keyboard__key-lightup");
+                setTimeout(function () {
+                    key.classList.remove("keyboard__key-lightup");
+                }, 200);
+            }
+        });
+    }
+
+    if (e.key === 'CapsLock') {
+        fullKeyboard.handleCapsLockClick();
+        fullKeyboard.elements.keys.forEach(key => {
+            if (key.textContent === 'caps') {
+                key.classList.add("keyboard__key--active", fullKeyboard.capsLock);
+            }
+        });
+    }
+});
+
+window.addEventListener("keyup", function (e) {
+    if (e.key === 'CapsLock') {
+        fullKeyboard.handleCapsLockClick();
+        fullKeyboard.elements.keys.forEach(key => {
+            if (key.textContent === 'caps') {
+                key.classList.remove("keyboard__key--active", fullKeyboard.capsLock);
+            }
+        });
+    }
 });
