@@ -60,7 +60,7 @@ body {
   text-shadow: 0 0 2px grey;
   width: 0.4em;
   height: 0.4em;
-  padding: 0.3em 0.4em 0.8em 1em;
+  padding: 0.3vh 0.4vw 2.8vh 1vw;
   background: radial-gradient(circle at 60% 80%, white 40%, #bbb);
   border-radius: 0.2em;
   position: relative;
@@ -116,6 +116,12 @@ body {
 
 .keyboard__key--active::after {
   background: #08ff00;
+}
+
+@media (max-width: 1280px) {
+  .keyboard__key {
+    padding: -0.7em 0.4em 0.8em 1em;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */

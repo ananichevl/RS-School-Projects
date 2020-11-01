@@ -109,6 +109,10 @@ class Keyboard {
             "space","left", "right"
         ];
 
+        const createIconHTML = (icon_name) => {
+            return `<i class="material-icons">${icon_name}</i>`;
+        };
+
         keyLayout.forEach(key => {
             const keyElement = document.createElement("span");
             const insertLineBreak = ["backspace", "]", "enter", "done"].indexOf(key) !== -1;
@@ -119,6 +123,8 @@ class Keyboard {
             switch (key) {
                 case "backspace":
                     keyElement.classList.add("keyboard__key--wide");
+                    keyElement.innerHTML = createIconHTML("backspace");
+
                     keyElement.addEventListener("click", () => {
                         let position = keyboardInput.selectionStart;
                         this.input = [this.input.substring(0, position - 1), this.input.substring(position)].join('');
@@ -185,12 +191,14 @@ class Keyboard {
 
                     break;
                 case "left":
+                    keyElement.classList.add("keyboard__key--wide");
                     keyElement.addEventListener("click", () => {
                         keyboardInput.focus();
                         keyboardInput.selectionEnd = keyboardInput.selectionEnd - 1;
                     });
                     break;
                 case "right":
+                    keyElement.classList.add("keyboard__key--wide");
                     keyElement.addEventListener("click", () => {
                         keyboardInput.focus();
                         keyboardInput.selectionStart = keyboardInput.selectionStart + 1;
@@ -203,8 +211,13 @@ class Keyboard {
 
                         if (Object.keys(alphabetSymbols).includes(key)) {
                             if (this.language === 'en') {
-                                let addition = this.capsLock ^ this.shift ? key.toUpperCase() : key.toLowerCase();
-                                this.input = [this.input.slice(0, position), addition, this.input.slice(position)].join('');
+                                if (key.match('[a-zA-Z]')) {
+                                    let addition = this.capsLock ^ this.shift ? key.toUpperCase() : key.toLowerCase();
+                                    this.input = [this.input.slice(0, position), addition, this.input.slice(position)].join('');
+                                } else {
+                                    let addition = this.shift ? digitSymbols[key] : key;
+                                    this.input = [this.input.slice(0, position), addition, this.input.slice(position)].join('');
+                                }
                             } else {
                                 let addition = this.capsLock ^ this.shift ? alphabetSymbols[key.toLowerCase()].toUpperCase() : alphabetSymbols[key.toLowerCase()].toLowerCase();
                                 this.input = [this.input.slice(0, position), addition, this.input.slice(position)].join('');
