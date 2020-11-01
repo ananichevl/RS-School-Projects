@@ -118,6 +118,21 @@ body {
   background: #08ff00;
 }
 
+.keyboard__key-lightup {
+  background: #23d5ab;
+}
+
+@keyframes lightup {
+  0% {
+    background: radial-gradient(circle at 60% 80%, white 40%, #bbb);
+  }
+  50% {
+    background: #23d5ab;
+  }
+  100% {
+    background: radial-gradient(circle at 60% 80%, white 40%, #bbb);
+  }
+}
 @media (max-width: 1280px) {
   .keyboard__key {
     padding: -0.7em 0.4em 0.8em 1em;

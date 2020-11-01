@@ -106,7 +106,7 @@ class Keyboard {
             "en", "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "[", "]",
             "caps", "a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "'", "\\", "enter",
             "shift", "z", "x", "c", "v", "b", "n", "m", ",", ".", "/", "done",
-            "space","left", "right"
+            "space", "left", "right"
         ];
 
         const createIconHTML = (icon_name) => {
@@ -308,4 +308,17 @@ window.addEventListener("DOMContentLoaded", function () {
 
 keyboardInput.addEventListener('input', function () {
     fullKeyboard.input = keyboardInput.value;
+});
+
+window.addEventListener("keypress", function (e) {
+    keyboardInput.focus();
+    console.log(e);
+    fullKeyboard.elements.keys.forEach(key => {
+        if (key.textContent.toLowerCase() === e.key.toLowerCase() || key.textContent === e.code.toLowerCase()) {
+            key.classList.add("keyboard__key-lightup");
+            setTimeout(function () {
+                key.classList.remove("keyboard__key-lightup");
+            }, 200);
+        }
+    })
 });
