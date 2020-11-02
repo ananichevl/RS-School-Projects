@@ -76,6 +76,7 @@ class Keyboard {
     capsLock = false;
     shift = false;
     language = 'en';
+    sound = false;
 
     constructor() {
         this.elements.main = document.createElement("div");
@@ -100,9 +101,17 @@ class Keyboard {
     };
 
     createKeys() {
+        let audio = document.createElement("audio");
+        audio.src = "assets/sounds/keyboard.wav";
+        document.body.appendChild(audio);
+
+        let audioRu = document.createElement("audio");
+        audioRu.src = "assets/sounds/ru_keyboard.wav";
+        document.body.appendChild(audio);
+
         const fragment = document.createDocumentFragment();
         const keyLayout = [
-            "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "backspace",
+            "sound", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "backspace",
             "en", "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "[", "]",
             "caps", "a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "'", "\\", "enter",
             "shift", "z", "x", "c", "v", "b", "n", "m", ",", ".", "/", "done",
@@ -122,10 +131,23 @@ class Keyboard {
 
             switch (key) {
                 case "backspace":
+                    let audioBackspace = document.createElement("audio");
+                    audioBackspace.src = "assets/sounds/scissors.wav";
+                    document.body.appendChild(audioBackspace);
+
                     keyElement.classList.add("keyboard__key--wide");
                     keyElement.innerHTML = createIconHTML("backspace");
 
                     keyElement.addEventListener("click", () => {
+                        if (this.sound) {
+                            audioBackspace.currentTime = 7.6;
+                            audioBackspace.play();
+
+                            setTimeout(function () {
+                                audioBackspace.pause();
+                            }, 350);
+                        }
+
                         let position = keyboardInput.selectionStart;
                         this.input = [this.input.substring(0, position - 1), this.input.substring(position)].join('');
                         keyboardInput.value = this.input;
@@ -134,19 +156,55 @@ class Keyboard {
                     });
                     break;
                 case "caps":
+                    let audioCaps = document.createElement("audio");
+                    audioCaps.src = "assets/sounds/caps.wav";
+                    document.body.appendChild(audioCaps);
+
                     keyElement.classList.add("keyboard__key--wide", "keyboard__key--activatable");
 
                     keyElement.addEventListener("click", () => {
+                        if (this.sound) {
+                            audioCaps.currentTime = 0;
+                            audioCaps.play();
+
+                            setTimeout(function () {
+                                audioCaps.pause();
+                            }, 350);
+                        }
+
                         this.handleCapsLockClick();
                         keyElement.classList.toggle("keyboard__key--active", this.capsLock);
                         keyboardInput.focus();
                     });
 
                     break;
+                case "sound":
+                    keyElement.classList.add("keyboard__key--wide", "keyboard__key--activatable");
+
+                    keyElement.addEventListener("click", () => {
+                        this.handleSoundClick();
+                        keyElement.classList.toggle("keyboard__key--active", this.sound);
+                        keyboardInput.focus();
+                    });
+
+                    break;
 
                 case "enter":
+                    let audioEnter = document.createElement("audio");
+                    audioEnter.src = "assets/sounds/boom.wav";
+                    document.body.appendChild(audioEnter);
+
                     keyElement.classList.add("keyboard__key--wide");
                     keyElement.addEventListener("click", () => {
+                        if (this.sound) {
+                            audioEnter.currentTime = 0;
+                            audioEnter.play();
+
+                            setTimeout(function () {
+                                audioEnter.pause();
+                            }, 350);
+                        }
+
                         let position = keyboardInput.selectionStart;
                         this.input = [this.input.slice(0, position), '\n', this.input.slice(position)].join('');
                         keyboardInput.value = this.input;
@@ -156,8 +214,21 @@ class Keyboard {
                     break;
 
                 case "space":
+                    let audioSpace = document.createElement("audio");
+                    audioSpace.src = "assets/sounds/space.wav";
+                    document.body.appendChild(audioSpace);
+
                     keyElement.classList.add("keyboard__key--extra-wide");
                     keyElement.addEventListener("click", () => {
+                        if (this.sound) {
+                            audioSpace.currentTime = 0;
+                            audioSpace.play();
+
+                            setTimeout(function () {
+                                audioSpace.pause();
+                            }, 350);
+                        }
+
                         let position = keyboardInput.selectionStart;
                         this.input = [this.input.slice(0, position), ' ', this.input.slice(position)].join('');
                         keyboardInput.value = this.input;
@@ -170,12 +241,24 @@ class Keyboard {
                     keyElement.classList.add("keyboard__key--wide", "keyboard__key--dark");
                     keyElement.addEventListener("click", () => {
                         this.close();
-                        keyboardInput.focus();
                     });
                     break;
                 case "shift":
+                    let audioShift = document.createElement("audio");
+                    audioShift.src = "assets/sounds/shift.wav";
+                    document.body.appendChild(audioShift);
+
                     keyElement.classList.add("keyboard__key--wide", "keyboard__key--activatable");
                     keyElement.addEventListener("click", () => {
+                        if (this.sound) {
+                            audioShift.currentTime = 0;
+                            audioShift.play();
+
+                            setTimeout(function () {
+                                audioShift.pause();
+                            }, 350);
+                        }
+
                         this.handleShiftClick();
                         keyElement.classList.toggle("keyboard__key--active", this.shift);
                         keyboardInput.focus();
@@ -205,12 +288,25 @@ class Keyboard {
                     });
                     break;
                 default:
+                    keyElement.dataset.key = key.charCodeAt(0);
+
                     keyElement.textContent = key.toLowerCase();
                     keyElement.addEventListener("click", () => {
+
                         let position = keyboardInput.selectionStart;
 
                         if (Object.keys(alphabetSymbols).includes(key)) {
+
                             if (this.language === 'en') {
+                                if (this.sound) {
+                                    audio.currentTime = 0;
+                                    audio.play();
+
+                                    setTimeout(function () {
+                                        audio.pause();
+                                    }, 350);
+                                }
+
                                 if (key.match('[a-zA-Z]')) {
                                     let addition = this.capsLock ^ this.shift ? key.toUpperCase() : key.toLowerCase();
                                     this.input = [this.input.slice(0, position), addition, this.input.slice(position)].join('');
@@ -219,10 +315,28 @@ class Keyboard {
                                     this.input = [this.input.slice(0, position), addition, this.input.slice(position)].join('');
                                 }
                             } else {
+                                if (this.sound) {
+                                    audioRu.currentTime = 0;
+                                    audioRu.play();
+
+                                    setTimeout(function () {
+                                        audioRu.pause();
+                                    }, 350);
+                                }
+
                                 let addition = this.capsLock ^ this.shift ? alphabetSymbols[key.toLowerCase()].toUpperCase() : alphabetSymbols[key.toLowerCase()].toLowerCase();
                                 this.input = [this.input.slice(0, position), addition, this.input.slice(position)].join('');
                             }
                         } else {
+                            if (this.sound) {
+                                audio.currentTime = 0;
+                                audio.play();
+
+                                setTimeout(function () {
+                                    audio.pause();
+                                }, 350);
+                            }
+
                             let addition = this.shift ? digitSymbols[key] : key;
                             this.input = [this.input.slice(0, position), addition, this.input.slice(position)].join('');
                         }
@@ -260,6 +374,10 @@ class Keyboard {
                 key.textContent = this.capsLock ^ this.shift ? key.textContent.toUpperCase() : key.textContent.toLowerCase();
             }
         });
+    }
+
+    handleSoundClick() {
+        this.sound = !this.sound;
     }
 
     handleShiftClick() {
@@ -319,6 +437,15 @@ window.addEventListener("keypress", function (e) {
             setTimeout(function () {
                 key.classList.remove("keyboard__key-lightup");
             }, 200);
+
+            /*let audio = document.querySelector(`audio[data-key="${key.textContent.charCodeAt(0)}"]`);
+            audio.currentTime = 0;
+            audio.play();
+
+            setTimeout(function () {
+                console.log(audio);
+                audio.pause();
+            }, 300);*/
         }
     });
 });
