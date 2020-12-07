@@ -1,0 +1,92 @@
+[
+  {
+    "title": "Выбери все элементы",
+    "selector": "*",
+    "markup": "<planet>\n  <satellite></satellite>\n  <crater></crater>\n  <crater></crater>\n</planet>\n<cloud></cloud>\n<cloud></cloud>"
+  },
+  {
+    "title": "Выбери все кратеры",
+    "selector": "planet *",
+    "markup": "<planet>\n  <crater></crater>\n  <crater></crater>\n  <crater></crater>\n</planet>\n<planet></planet>\n<planet></planet>"
+  },
+  {
+    "title": "Выбери планету",
+    "selector": "planet",
+    "markup": "<cloud></cloud>\n<planet></planet>\n<moon></moon>"
+  },
+  {
+    "title": "Выбери солнце",
+    "selector": "planet#sun",
+    "markup": "<planet></planet>\n<planet id=\"sun\"></planet>\n<planet></planet>"
+  },
+  {
+    "title": "Выбери светящуюся планету",
+    "selector": "planet.shining",
+    "markup": "<planet></planet>\n<planet class=\"shining\"></planet>\n<planet></planet>"
+  },
+  {
+    "title": "Выбери планеты с указанием языка",
+    "selector": "planet[lang]",
+    "markup": "<planet lang=\"ru\">Юпитер</planet>\n<planet>Сатурн</planet>\n<planet lang=\"en\">Mercury</planet>"
+  },
+  {
+    "title": "Выбери планету на английском",
+    "selector": "planet[lang=\"en\"]",
+    "markup": "<planet lang=\"ru\">Юпитер</planet>\n<planet lang=\"ru\">Сатурн</planet>\n<planet lang=\"en\">Mercury</planet>"
+  },
+  {
+    "title": "Выбери планету и луну",
+    "selector": "planet, moon",
+    "markup": "<cloud></cloud>\n<planet></planet>\n<moon></moon>"
+  },
+  {
+    "title": "Выбери кратер",
+    "selector": "planet crater",
+    "markup": "<planet>\n  <crater></crater>\n</planet>\n<moon></moon>\n<planet></planet>"
+  },
+  {
+    "title": "Выбери луну после планеты",
+    "selector": "planet + moon",
+    "markup": "<planet></planet>\n<moon></moon>\n<moon></moon>\n<planet></planet>"
+  },
+  {
+    "title": "Выбери все луны после планеты",
+    "selector": "planet ~ moon",
+    "markup": "<moon></moon>\n<planet></planet>\n<moon></moon>\n<moon></moon>"
+  },
+  {
+    "title": "Выбери последний кратер",
+    "selector": "crater:last-child",
+    "markup": "<planet>\n  <crater></crater>\n  <crater></crater>\n  <crater></crater>\n</planet>\n<moon></moon>\n<planet></planet>"
+  },
+  {
+    "title": "Выбери второй кратер",
+    "selector": "crater:nth-child(2)",
+    "markup": "<planet>\n  <crater></crater>\n  <crater></crater>\n  <crater></crater>\n</planet>\n<moon></moon>\n<planet></planet>"
+  },
+  {
+    "title": "Выбери первый и третий кратер",
+    "selector": "crater:nth-child(2n + 1)",
+    "markup": "<planet>\n  <crater></crater>\n  <crater></crater>\n  <crater></crater>\n</planet>\n<moon></moon>\n<planet></planet>"
+  },
+  {
+    "title": "Выбери первый кратер",
+    "selector": "crater:first-of-type",
+    "markup": "<planet>\n  <crater></crater>\n  <crater></crater>\n  <crater></crater>\n</planet>\n<moon></moon>\n<planet></planet>"
+  },
+  {
+    "title": "Выбери кратер, если он один",
+    "selector": "crater:only-of-type",
+    "markup": "<planet>\n  <crater></crater>\n  <crater></crater>\n  <crater></crater>\n</planet>\n<moon></moon>\n<planet>\n  <crater></crater>\n</planet>"
+  },
+  {
+    "title": "Выбери планету без кратеров",
+    "selector": "planet:empty",
+    "markup": "<planet>\n  <crater></crater>\n  <crater></crater>\n  <crater></crater>\n</planet>\n<moon></moon>\n<planet>\n  <crater></crater>\n</planet>\n<planet></planet>"
+  },
+  {
+    "title": "Выбери все кроме луны",
+    "selector": ":not(moon)",
+    "markup": "<planet>\n  <crater></crater>\n  <crater></crater>\n  <crater></crater>\n</planet>\n<cloud></cloud>\n<planet></planet>\n<moon></moon>"
+  }
+]
